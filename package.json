@@ -1,0 +1,13 @@
+{
+  "name": "acss-playground",
+  "version": "1.0.0",
+  "description": "Interactive ACSS (Atomizer) playground with real-time CSS generation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "atomizer": "^3.29.0",
+    "express": "^4.21.0"
+  }
+}

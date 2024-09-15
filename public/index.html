@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground for Atomizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <header>
+        <h1>Playground for Atomizer</h1>
+        <p>ACSS (Atomizer) version: <span id="atomizer-version"></span></p>
+    </header>
+    <main>
+        <div class="pane">
+            <h2>HTML</h2>
+            <textarea id="html-input" class="code-input" spellcheck="false"></textarea>
+        </div>
+        <div class="pane">
+            <h2>ACSS Config</h2>
+            <textarea id="acss-config" class="code-input" spellcheck="false"></textarea>
+        </div>
+        <div class="pane">
+            <h2>CSS Output</h2>
+            <pre><code id="css-output" class="language-css"></code></pre>
+        </div>
+        <div class="pane">
+            <h2>Preview</h2>
+            <iframe id="preview-frame"></iframe>
+        </div>
+    </main>
+    <footer>
+        <p>
+            Atomizer is a tool for creating Atomic CSS. Learn more at 
+            <a href="https://acss.io" target="_blank" rel="noopener noreferrer">acss.io</a>.
+        </p>
+        <p>
+            Created by <a href="https://twitter.com/jitendravyas" target="_blank" rel="noopener noreferrer">Jitendra Vyas</a>
+        </p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-markup.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
