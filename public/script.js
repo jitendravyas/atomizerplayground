@@ -3,6 +3,10 @@ const acssConfig = document.getElementById('acss-config');
 const cssOutput = document.getElementById('css-output');
 const previewFrame = document.getElementById('preview-frame');
 const atomizerVersion = document.getElementById('atomizer-version');
+const saveBtn = document.getElementById('save-btn');
+const shareBtn = document.getElementById('share-btn');
+const loadInput = document.getElementById('load-input');
+const loadBtn = document.getElementById('load-btn');
 
 // Set initial values
 htmlInput.value = '<div class="P(20px) C(#333) Fz(20px)">Hello, Atomizer!</div>';
@@ -115,6 +119,79 @@ fetch('https://api.npms.io/v2/package/atomizer')
         console.error('Error fetching Atomizer version:', error);
         atomizerVersion.textContent = 'Unknown';
     });
+
+// Save configuration
+saveBtn.addEventListener('click', () => {
+    const config = {
+        html: htmlInput.value,
+        acss: acssConfig.value
+    };
+    localStorage.setItem('atomizer-playground-config', JSON.stringify(config));
+    alert('Configuration saved!');
+});
+
+// Share configuration
+shareBtn.addEventListener('click', () => {
+    const config = {
+        html: htmlInput.value,
+        acss: acssConfig.value
+    };
+    const encodedConfig = btoa(JSON.stringify(config));
+    const shareUrl = `${window.location.origin}${window.location.pathname}?config=${encodedConfig}`;
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        alert('Share URL copied to clipboard!');
+    });
+});
+
+// Load configuration
+loadBtn.addEventListener('click', () => {
+    const shareUrl = loadInput.value;
+    const url = new URL(shareUrl);
+    const encodedConfig = url.searchParams.get('config');
+    if (encodedConfig) {
+        try {
+            const config = JSON.parse(atob(encodedConfig));
+            htmlInput.value = config.html;
+            acssConfig.value = config.acss;
+            processAcss();
+            alert('Configuration loaded successfully!');
+        } catch (error) {
+            console.error('Error loading configuration:', error);
+            alert('Error loading configuration. Please check the URL and try again.');
+        }
+    } else {
+        alert('Invalid share URL. Please check the URL and try again.');
+    }
+});
+
+// Check for shared configuration on page load
+window.addEventListener('load', () => {
+    const url = new URL(window.location.href);
+    const encodedConfig = url.searchParams.get('config');
+    if (encodedConfig) {
+        try {
+            const config = JSON.parse(atob(encodedConfig));
+            htmlInput.value = config.html;
+            acssConfig.value = config.acss;
+            processAcss();
+        } catch (error) {
+            console.error('Error loading shared configuration:', error);
+        }
+    } else {
+        // Load saved configuration if available
+        const savedConfig = localStorage.getItem('atomizer-playground-config');
+        if (savedConfig) {
+            try {
+                const config = JSON.parse(savedConfig);
+                htmlInput.value = config.html;
+                acssConfig.value = config.acss;
+                processAcss();
+            } catch (error) {
+                console.error('Error loading saved configuration:', error);
+            }
+        }
+    }
+});
 
 // Initial ACSS processing
 processAcss();
